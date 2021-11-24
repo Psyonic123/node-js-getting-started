@@ -7,6 +7,18 @@ express()
   .use(express.static(path.join(__dirname, "public")))
   .set("views", path.join(__dirname, "views"))
   .set("view engine", "ejs")
+  // Routes
   .get("/", (req, res) => res.render("pages/index"))
   .get("/cool", (req, res) => res.send(cool()))
+  .get("/times", (req, res) => res.send(showTimes()))
+  // Localhost port 5000
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+var showTimes = () => {
+  let result = "";
+  const times = process.env.TIMES || 5;
+  for (let i = 0; i < times; i++) {
+    result += i + " ";
+  }
+  return result;
+};
